@@ -1,5 +1,6 @@
 #!/usr/bin/python2.7
 import sys
+import os
 
 def print_normal(s, bold=False):
     if not bold:
@@ -36,7 +37,7 @@ score_sheet_tex_file = open(filename, "r")
 lines = score_sheet_tex_file.readlines()
 
 team_name = sys.argv[2]
-test_name = filename[:filename.find(".")]
+test_name = os.path.basename(filename)[:os.path.basename(filename).find(".")]
 
 text_green = "\033[1;32;40m"
 text_normal = "\033[0;37;40m"
@@ -64,7 +65,10 @@ for l in lines:
         # find number of repetitions (in square brackets)
         repetitions = 1
         if l.find("[") != -1:
-            repetitions = int(l[l.find("[")+1:l.find("]")])
+            try:
+                repetitions = int(l[l.find("[")+1:l.find("]")])
+            except Exception, e:
+                print "argument not a number therefore no repetition interpreted"
         for i in range(repetitions):
             text = "* " + l[l.find("}{")+2:-1]
             print_normal(format_text(text, points), True)
