@@ -69,16 +69,13 @@ for l in lines:
             text = "* " + l[l.find("}{")+2:-1]
             print_normal(format_text(text, points), True)
 
-            try:
-                mode = str(raw_input('Input (yY for granting nN for not grating hH for half):'))
-            except ValueError:
-                print "Not a number"
+            choice = str(raw_input('Input (yY for granting nN for not grating hH for half):'))
 
             granted_points = 0.0
-            if mode == "y" or mode == "Y":
+            if choice == "y" or choice == "Y":
                 print_green(format_text("Points granted",  points))
                 granted_points = points
-            elif mode == "h" or mode == "H":
+            elif choice == "h" or choice == "H":
                 print_red(format_text("Half Points granted", points / 2.0))
                 granted_points = points / 2.0
             else:
